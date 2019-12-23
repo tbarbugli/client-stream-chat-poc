@@ -36,12 +36,18 @@ class ChannelsViewModel(repository: ChannelsRepository) {
 
         channels.postValue(ViewState.Loading())
 
+        // TODO: subscribe to events that are relevant
+
         uiScope.launch {
             val result = withContext(bgDispatcher) { repository.getChannels() }
             channels.postValue(ViewState.Success(result))
         }
     }
 
+    loadMore {
+        // ...
+    }
+       
     fun channels(): LiveData<ViewState<List<Channel>>> {
         return channels
     }
